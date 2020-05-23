@@ -4,7 +4,7 @@ const INLINE_TYPES = [
   { label: 'Bold', style: 'BOLD' },
   { label: 'Italic', style: 'ITALIC' },
   { label: 'Underline', style: 'UNDERLINE' },
-  { label: 'Monospace', style: 'CODE' },
+  { label: 'Monospace', style: 'CODE' }
 ]
 
 const BLOCK_TYPES = [
@@ -13,7 +13,7 @@ const BLOCK_TYPES = [
   { label: 'Blockquote', style: 'blockquote' },
   { label: 'UL', style: 'unordered-list-item' },
   { label: 'OL', style: 'ordered-list-item' },
-  { label: 'Code Block', style: 'code-block' },
+  { label: 'Code Block', style: 'code-block' }
 ]
 
 const StyleButton = ({ label, style, onToggle, active }) => {
@@ -59,7 +59,7 @@ const InlineStyleControls = ({ editorState, onToggle }) => {
 
 const Toolbar = ({ editorState, onToggleInlineStyle, onToggleBlockType }) => {
   return (
-    <div className="toolbar">
+    <div className='toolbar'>
       <InlineStyleControls editorState={editorState} onToggle={onToggleInlineStyle} />
       <BlockStyleControls editorState={editorState} onToggle={onToggleBlockType} />
     </div>

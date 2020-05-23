@@ -1,43 +1,43 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/firestore';
-import 'firebase/functions';
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/firestore'
+import 'firebase/functions'
 
 class FirebaseService {
-  constructor(config) {
-    this.app = firebase.initializeApp(config);
+  constructor (config) {
+    this.app = firebase.initializeApp(config)
   }
 
-  auth() {
-    return this.app.auth();
+  auth () {
+    return this.app.auth()
   }
 
-  firestore() {
-    return this.app.firestore();
+  firestore () {
+    return this.app.firestore()
   }
 
-  currentUser() {
-    return this.app.auth().currentUser;
+  currentUser () {
+    return this.app.auth().currentUser
   }
 
-  currentUserId() {
-    return this.currentUser().uid;
+  currentUserId () {
+    return this.currentUser().uid
   }
 
-  currentUserNotes() {
+  currentUserNotes () {
     return this.firebaseService
       .firestore()
       .collection('users')
       .doc(this.currentUserId())
-      .collection('notes');
+      .collection('notes')
   }
 
-  serverTimestamp() {
+  serverTimestamp () {
     return firebase.firestore.FieldValue.serverTimestamp()
   }
 
-  async createNote() {
-    var f = this.app.functions().httpsCallable('createNote');
+  async createNote () {
+    var f = this.app.functions().httpsCallable('createNote')
     return await f({})
   }
 }
@@ -49,5 +49,5 @@ export default new FirebaseService({
   databaseURL: process.env.REACT_APP_DATABASE_URL,
   projectId: process.env.REACT_APP_PROJECT_ID,
   storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
-});
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID
+})

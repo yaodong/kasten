@@ -1,13 +1,13 @@
-import firebase from 'firebase/app';
-import firebaseService from '../firebase';
+import firebase from 'firebase/app'
+import firebaseService from '../firebase'
 
 export const AuthActions = {
   SIGN_IN: 'AUTH_SIGN_IN',
   SIGN_OUT: 'AUTH_SIGN_OUT',
-  CHANGED: 'AUTH_CHANGED',
-};
+  CHANGED: 'AUTH_CHANGED'
+}
 
-export function observeAuthAction(dispatch) {
+export function observeAuthAction (dispatch) {
   firebaseService.auth().onAuthStateChanged(result => {
     const auth = result
       ? {
@@ -19,47 +19,45 @@ export function observeAuthAction(dispatch) {
       : {
         isUser: false,
         isGuest: true
-      };
-    dispatch({ type: AuthActions.CHANGED, auth });
-  });
+      }
+    dispatch({ type: AuthActions.CHANGED, auth })
+  })
 };
 
-export function authReducer(state = {}, action) {
+export function authReducer (state = {}, action) {
   switch (action.type) {
     case AuthActions.CHANGED:
-      const { auth } = action;
-      if (auth.isGuest) {
-        localStorage.removeItem('auth');
+      if (action.auth.isGuest) {
+        window.localStorage.removeItem('auth')
       }
-      return auth;
+      return action.auth
     default:
-      return { ...state };
+      return { ...state }
   }
 }
 
-export function authMiddleware() {
+export function authMiddleware () {
   return next => async action => {
     switch (action.type) {
       case AuthActions.SIGN_IN:
-        await signInUser();
-        break;
+        await signInUser()
+        break
       case AuthActions.SIGN_OUT:
-        await signOutUser();
-        break;
+        await signOutUser()
+        break
       default:
     }
     return next(action)
   }
 }
 
-
-const authProvider = new firebase.auth.GoogleAuthProvider();
+const authProvider = new firebase.auth.GoogleAuthProvider()
 
 const signInUser = async () => {
-  await firebaseService.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-  await firebaseService.auth().signInWithPopup(authProvider);
-};
+  await firebaseService.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+  await firebaseService.auth().signInWithPopup(authProvider)
+}
 
 const signOutUser = async () => {
-  await firebaseService.auth().signOut();
+  await firebaseService.auth().signOut()
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { convertFromRaw, Editor, EditorState, convertToRaw, RichUtils, getDefaultKeyBinding } from 'draft-js'
-import Toolbar from './Toolbar';
+import Toolbar from './Toolbar'
 
 const CustomEditor = ({ content, onSubmit }) => {
   const [editorState, setEditorState] = React.useState(() =>
@@ -34,7 +34,7 @@ const CustomEditor = ({ content, onSubmit }) => {
       const newEditorState = RichUtils.onTab(
         e,
         editorState,
-        4, /* maxDepth */
+        4 /* maxDepth */
       )
       if (newEditorState !== editorState) {
         setEditorState(newEditorState)
@@ -45,8 +45,8 @@ const CustomEditor = ({ content, onSubmit }) => {
   }
 
   return (
-    <div className="editor">
-      <div className="editor__header">
+    <div className='editor'>
+      <div className='editor__header'>
         <button onClick={onSave}>Save</button>
       </div>
       <Toolbar
@@ -54,7 +54,7 @@ const CustomEditor = ({ content, onSubmit }) => {
         onToggleBlockType={toggleBlockType}
         onToggleInlineStyle={toggleInlineStyle}
       />
-      <div className="editor__content">
+      <div className='editor__content'>
         <Editor
           editorState={editorState}
           onChange={setEditorState}
@@ -62,8 +62,7 @@ const CustomEditor = ({ content, onSubmit }) => {
           keyBindingFn={mapKeyToEditorCommand}
         />
       </div>
-      <div className="editor__footer">
-      </div>
+      <div className='editor__footer' />
     </div>
   )
 }
