@@ -28,7 +28,8 @@
     "postcss:build": "postcss src/styles/index.css -o src/bundle.css",
     "postcss:watch": "watch 'yarn run postcss:build' src/styles",
     "serve:dev": "concurrently 'yarn run postcss:watch' 'yarn run react:start'",
-    "dev": "yarn run postcss:build && yarn run serve:dev"
+    "dev": "yarn run postcss:build && yarn run serve:dev",
+    "deploy:function": "firebase deploy --only functions"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -47,6 +48,7 @@
   },
   "devDependencies": {
     "concurrently": "^5.2.0",
+    "firebase-functions-test": "^0.2.1",
     "watch": "^1.0.2"
   }
 }
