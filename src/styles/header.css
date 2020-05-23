@@ -1,0 +1,17 @@
+.header {
+  @apply flex-initial;
+}
+
+.nav {
+  @apply flex pt-2 pb-1 justify-center;
+}
+
+.nav a,
+.nav button {
+  @apply mx-2;
+  @apply font-bold text-sm text-gray-700 border-b-2 border-transparent;
+}
+
+.nav a:hover {
+  border-bottom-color: #f46a54;
+}

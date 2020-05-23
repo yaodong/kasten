@@ -1,0 +1,11 @@
+html,
+body {
+  background-color: #fbf7f5;
+  color: #444;
+  @apply h-full;
+}
+
+#root {
+  @apply flex flex-col;
+  @apply h-full;
+}
