@@ -1,20 +1,19 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import Archive from './pages/Archive';
 import Header from './components/Header';
+import ProtectedRoute from './routes'
+import HomePage from './pages/Home';
+import ArchivePage from './pages/Archive';
+import WritePage from './pages/Write';
 
 function App() {
   return (
     <Router>
       <Header />
       <Switch>
-        <Route path="/archive">
-          <Archive />
-        </Route>
-        <Route path="/">
-          <Home />
-        </Route>
+        <ProtectedRoute path="/write" component={WritePage} />
+        <ProtectedRoute path="/archive" component={ArchivePage} />
+        <Route path="/"><HomePage /></Route>
       </Switch>
     </Router>
   );

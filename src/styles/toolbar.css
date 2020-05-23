@@ -1,0 +1,16 @@
+.toolbar {
+  @apply flex flex-initial;
+  @apply border-b py-1 px-2 justify-center;
+}
+
+.toolbar button {
+  @apply text-sm mr-3 border-b border-transparent;
+}
+
+.toolbar button:hover {
+  border-bottom-color: #f1bdb7;
+}
+
+.toolbar button.active {
+  border-bottom-color: #e58075;
+}

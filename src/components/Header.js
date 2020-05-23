@@ -8,6 +8,7 @@ const Header = () => {
       <div className="container mx-auto">
         <div className="nav">
           <Link to="/">Home</Link>
+          <Link to="/write">Write</Link>
           <Link to="/archive">Archive</Link>
           <UserSignInOut />
         </div>

@@ -1,0 +1,104 @@
+.editor {
+  @apply flex flex-col h-full;
+}
+
+.editor__header {
+  @apply p-2 text-sm;
+}
+
+.editor__slug {
+  @apply text-gray-500 font-mono;
+}
+
+.editor__content {
+  font-family: "Open Sans", "Ubuntu", "Lucida Grande", "Lucida Sans Unicode",
+    "Geneva", "Verdana", sans-serif;
+  @apply flex-auto relative;
+}
+
+.editor__content blockquote {
+  @apply pl-2 border-l-2;
+}
+
+.editor__save-btn {
+  @apply text-white px-2 py-1 rounded font-thin text-xs;
+  background-color: #029e74;
+}
+
+.editor__save-btn:hover {
+  border-color: #ed9b6e;
+}
+
+.editor__content .DraftEditor-root {
+  @apply absolute inset-0 text-lg;
+}
+
+.editor__content .DraftEditor-editorContainer {
+  @apply pt-3;
+}
+
+.editor__content .DraftEditor-editorContainer,
+.editor__content .public-DraftEditor-content {
+  @apply h-full overflow-y-auto;
+}
+
+.DraftEditor-root em {
+  font-style: italic;
+}
+
+.DraftEditor-root h1 {
+  @apply font-bold text-gray-800;
+  font-size: 1.2rem;
+  line-height: 1.2rem;
+}
+
+.DraftEditor-root h2 {
+  @apply font-semibold text-gray-700;
+  font-size: 1.1rem;
+  line-height: 1.1rem;
+}
+
+.DraftEditor-root ol,
+.DraftEditor-root ul {
+  margin: 0 0 10px 25px;
+  padding: 0;
+}
+
+.DraftEditor-root ul {
+  display: block;
+  list-style-type: disc;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+}
+
+.DraftEditor-root ol ol,
+.DraftEditor-root ol ul,
+.DraftEditor-root ul ol,
+.DraftEditor-root ul ul {
+  margin-bottom: 0;
+}
+
+.DraftEditor-root ol {
+  display: block;
+  list-style-type: decimal;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+}
+
+.DraftEditor-root li {
+  line-height: 20px;
+}
+
+.DraftEditor-root blockquote {
+  background-color: inherit;
+}
+
+.public-DraftStyleDefault-pre {
+  @apply bg-gray-100 text-sm mx-0 py-2 px-3 border rounded;
+}
