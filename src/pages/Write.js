@@ -1,17 +1,20 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import firebaseService from '../firebase';
 import Editor from '../components/editor';
 
 const WritePage = props => {
+
+  const onSubmit = async (content) => {
+    const noteId = await firebaseService.createNote(content);
+  }
+
   return (
-    <div className="page">
-      <Editor />
+    <div className="container">
+      <div className="page">
+        <Editor onSubmit={onSubmit} />
+      </div>
     </div>
   );
-};
-
-WritePage.propTypes = {
-
 };
 
 export default WritePage;

@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Header from './components/Header';
 import ProtectedRoute from './routes'
 import HomePage from './pages/Home';
 import ArchivePage from './pages/Archive';
@@ -9,7 +8,6 @@ import WritePage from './pages/Write';
 function App() {
   return (
     <Router>
-      <Header />
       <Switch>
         <ProtectedRoute path="/write" component={WritePage} />
         <ProtectedRoute path="/archive" component={ArchivePage} />

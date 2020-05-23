@@ -1,5 +1,5 @@
 import firebase from 'firebase/app';
-import firebaseService from '../services/firebase';
+import firebaseService from '../firebase';
 
 export const AuthActions = {
   SIGN_IN: 'AUTH_SIGN_IN',

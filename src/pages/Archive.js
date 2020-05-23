@@ -1,9 +1,13 @@
 import React from 'react';
+import Header from '../components/Header';
 
 const ArchivePage = () => {
   return (
-    <div>
-      Archive
+    <div className="container">
+      <Header />
+      <div className="page">
+        archive pages
+      </div>
     </div>
   );
 };

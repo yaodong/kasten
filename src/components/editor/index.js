@@ -1,10 +1,10 @@
 import React from 'react'
-import { convertFromRaw, Editor, EditorState, RichUtils, getDefaultKeyBinding } from 'draft-js'
+import { convertFromRaw, Editor, EditorState, convertToRaw, RichUtils, getDefaultKeyBinding } from 'draft-js'
 import Toolbar from './Toolbar';
 
-const CustomEditor = ({ note, onSubmit }) => {
+const CustomEditor = ({ content, onSubmit }) => {
   const [editorState, setEditorState] = React.useState(() =>
-    note ? EditorState.createWithContent(convertFromRaw(note['content'])) : EditorState.createEmpty()
+    content ? EditorState.createWithContent(convertFromRaw(content)) : EditorState.createEmpty()
   )
 
   const toggleInlineStyle = (style) => {
@@ -17,7 +17,7 @@ const CustomEditor = ({ note, onSubmit }) => {
 
   const onSave = async (e) => {
     e.preventDefault()
-    console.log(e)
+    onSubmit(convertToRaw(editorState.getCurrentContent()))
   }
 
   const handleKeyCommand = (command, editorState) => {
