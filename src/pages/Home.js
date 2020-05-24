@@ -6,7 +6,7 @@ const HomePage = () => {
     <div className='container'>
       <Header />
       <div className='page'>
-        Welcome
+        <pre className='text-center'>WIP</pre>
       </div>
     </div>
   )

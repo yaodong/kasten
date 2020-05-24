@@ -1,23 +1,20 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { connect } from 'react-redux'
-import { FirebaseContext } from '../firebase'
-import { AuthActions } from '../store/auth'
-import { AuthShape } from '../store/shapes'
+import { UserContext, FirebaseContext } from '../contexts'
 import Header from '../components/Header'
 import NoteEntry from '../components/NoteEntry'
 
-const ArchivePage = ({ auth }) => {
-  console.log('in page', auth)
+const ArchivePage = () => {
   const [notes, setNotes] = useState([])
+  const { user } = useContext(UserContext)
   const firebase = useContext(FirebaseContext)
 
   useEffect(() => {
     const loadNotes = async () => {
-      const notes = await firebase.listNotes(auth.userId)
+      const notes = await firebase.listNotes(user.id)
       setNotes(notes)
     }
     loadNotes()
-  }, [firebase, auth, setNotes])
+  }, [firebase, user, setNotes])
 
   return (
     <div className='container'>
@@ -33,26 +30,4 @@ const ArchivePage = ({ auth }) => {
   )
 }
 
-ArchivePage.propTypes = {
-  auth: AuthShape
-}
-
-ArchivePage.defaultProps = {
-  auth: {}
-}
-
-const mapStateToProps = state => {
-  return {
-    auth: state.auth
-  }
-}
-
-const mapDispatchToProps = dispatch => ({
-  signIn: () => dispatch({ type: AuthActions.SIGN_IN }),
-  signOut: () => dispatch({ type: AuthActions.SIGN_OUT })
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ArchivePage)
+export default ArchivePage

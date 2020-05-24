@@ -16,20 +16,22 @@ export const Excerpt = ({ content }) => {
   return text
 }
 
-export default ({ id, content }) => {
+const Entry = ({ id, content }) => {
   console.log('content', content)
   return (
     <div className='entry'>
       <div className='entry_id'>
-        <Link to={`/read?id=${id}`}>
+        <Link to={`/read/${id}`}>
           {id}
         </Link>
       </div>
       <div className='entry_preview'>
-        <Link to={`/read?id=${id}`}>
-          <Excerpt content={content} />
+        <Link to={`/read/${id}`}>
+          {content ? <Excerpt content={content} /> : ''}
         </Link>
       </div>
     </div>
   )
 }
+
+export default Entry

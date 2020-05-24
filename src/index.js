@@ -2,20 +2,15 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './bundle.css'
 import App from './App'
+import { UserProvider, FirebaseProvider } from './contexts'
 import * as serviceWorker from './serviceWorker'
 
-import { Provider } from 'react-redux'
-import { configureStore } from './store'
-import firebaseInstance, { FirebaseContext } from './firebase'
-
-const store = configureStore()
-
 ReactDOM.render(
-  <Provider store={store}>
-    <FirebaseContext.Provider value={firebaseInstance}>
+  <UserProvider>
+    <FirebaseProvider>
       <App />
-    </FirebaseContext.Provider>
-  </Provider>,
+    </FirebaseProvider>
+  </UserProvider>,
   document.getElementById('root')
 )
 

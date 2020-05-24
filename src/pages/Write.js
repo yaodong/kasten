@@ -1,28 +1,29 @@
-import React, { useState, useEffect, useCallback } from 'react'
-import firebaseService from '../firebase'
+import React, { useState, useEffect, useCallback, useContext } from 'react'
 import Editor from '../components/editor'
 import Header from '../components/Header'
+import { FirebaseContext } from '../contexts'
 
-const WritePage = props => {
+const WritePage = () => {
   const [docId, setDocId] = useState(null)
   const [saving, setSaving] = useState(false)
   const [content, setContent] = useState(null)
+  const firebase = useContext(FirebaseContext)
 
   useEffect(() => {
     const init = async () => {
       if (!docId && content) {
-        const id = await firebaseService.createNote()
+        const id = await firebase.createNote()
         setDocId(id)
       }
     }
     init()
-  }, [docId, content])
+  }, [firebase, docId, content])
 
   const save = useCallback(async () => {
     setSaving(true)
-    await firebaseService.updateNote(docId, content)
-    setSaving(false)
-  }, [docId, content])
+    await firebase.updateNote(docId, content)
+    setTimeout(() => setSaving(false), 500)
+  }, [firebase, docId, content])
 
   return (
     <div className='container'>

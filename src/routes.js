@@ -1,26 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Redirect, Route } from 'react-router-dom'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import { AuthShape } from './store/shapes'
+import { UserContext } from './contexts'
 
 const ProtectedRoute = ({ component: Component, auth, ...rest }) => {
+  const { user } = useContext(UserContext)
+
   return (
     <Route
       {...rest}
       render={props =>
-        auth.isUser ? <Component {...props} /> : <Redirect to='/' />}
+        user ? <Component {...props} /> : <Redirect to='/' />}
     />
   )
 }
 
-ProtectedRoute.propTypes = {
-  component: PropTypes.oneOfType([PropTypes.object, PropTypes.func]).isRequired,
-  auth: AuthShape.isRequired
-}
-
-const mapStateToProps = state => ({
-  auth: state.auth
-})
-
-export default connect(mapStateToProps)(ProtectedRoute)
+export default ProtectedRoute

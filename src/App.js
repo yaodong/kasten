@@ -4,6 +4,7 @@ import ProtectedRoute from './routes'
 import HomePage from './pages/Home'
 import ArchivePage from './pages/Archive'
 import WritePage from './pages/Write'
+import ReadPage from './pages/Read'
 
 function App () {
   return (
@@ -11,6 +12,7 @@ function App () {
       <Switch>
         <ProtectedRoute path='/write' component={WritePage} />
         <ProtectedRoute path='/archive' component={ArchivePage} />
+        <ProtectedRoute path='/read/:id' component={ReadPage} />
         <Route path='/'><HomePage /></Route>
       </Switch>
     </Router>

@@ -12,7 +12,7 @@
 
 .nav_links a{
   @apply mx-2 ;
-  @apply font-bold text-sm text-gray-700 border-b-2 border-transparent;
+  @apply font-semibold text-sm text-gray-700 border-b-2 border-transparent;
 }
 
 .nav_links a:hover {

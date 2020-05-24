@@ -1,10 +1,13 @@
-import { createContext } from 'react'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
 import 'firebase/functions'
 
 class FirebaseService {
+  get pageSize () {
+    return 100
+  }
+
   constructor (config) {
     this.app = firebase.initializeApp(config)
   }
@@ -25,12 +28,14 @@ class FirebaseService {
     return this.currentUser().uid
   }
 
-  currentUserNotes () {
-    return this
-      .firestore()
-      .collection('users')
-      .doc(this.currentUserId())
-      .collection('notes')
+  async signIn () {
+    const authProvider = new firebase.auth.GoogleAuthProvider()
+    await this.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+    await firebase.auth().signInWithPopup(authProvider)
+  }
+
+  async signOut () {
+    await this.auth().signOut()
   }
 
   serverTimestamp () {
@@ -53,12 +58,17 @@ class FirebaseService {
 
   async listNotes (userId, lastVisible = null) {
     const query = this.app.firestore().collection('users').doc(userId).collection('notes').orderBy(firebase.firestore.FieldPath.documentId())
-    const pageQuery = lastVisible ? query.startAfter(lastVisible).limit(10).get() : query
-    const snapshot = await pageQuery.limit(10).get()
-    return await snapshot.docs.map(doc => ({
+    const pageQuery = lastVisible ? query.startAfter(lastVisible).limit(this.pageSize) : query
+    const snapshot = await pageQuery.get()
+    return snapshot.docs.map(doc => ({
       ...doc.data(),
       id: doc.id
     }))
+  }
+
+  async getNote (userId, docId) {
+    const docRef = await this.app.firestore().collection('users').doc(userId).collection('notes').doc(docId).get()
+    return { id: docRef.id, ...docRef.data() }
   }
 }
 
@@ -73,5 +83,3 @@ const instance = new FirebaseService({
 })
 
 export default instance
-
-export const FirebaseContext = createContext(null)

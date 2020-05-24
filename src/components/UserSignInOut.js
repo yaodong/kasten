@@ -1,11 +1,19 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import { AuthActions } from '../store/auth'
-import { AuthShape } from '../store/shapes'
+import React, { useContext, useCallback } from 'react'
+import { UserContext, FirebaseContext } from '../contexts'
 
-const UserSignInOut = ({ auth, signOut, signIn }) => {
-  return auth.isUser
+const UserSignInOut = () => {
+  const { user } = useContext(UserContext)
+  const firebase = useContext(FirebaseContext)
+
+  const signIn = useCallback(async () => {
+    await firebase.signIn()
+  }, [firebase])
+
+  const signOut = useCallback(async () => {
+    await firebase.signOut()
+  }, [firebase])
+
+  return user
     ? (
       <button onClick={signOut}>
         Sign Out
@@ -17,28 +25,4 @@ const UserSignInOut = ({ auth, signOut, signIn }) => {
     )
 }
 
-UserSignInOut.propTypes = {
-  auth: AuthShape,
-  signOut: PropTypes.func.isRequired,
-  signIn: PropTypes.func.isRequired
-}
-
-UserSignInOut.defaultProps = {
-  auth: {}
-}
-
-const mapStateToProps = state => {
-  return {
-    auth: state.auth
-  }
-}
-
-const mapDispatchToProps = dispatch => ({
-  signIn: () => dispatch({ type: AuthActions.SIGN_IN }),
-  signOut: () => dispatch({ type: AuthActions.SIGN_OUT })
-})
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(UserSignInOut)
+export default UserSignInOut
