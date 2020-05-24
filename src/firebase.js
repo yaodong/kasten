@@ -2,6 +2,10 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
 import 'firebase/functions'
+import pako from 'pako'
+
+const deflate = content => window.btoa(pako.deflate(JSON.stringify(content), { to: 'string' }))
+const inflate = content => JSON.parse(pako.inflate(window.atob(content), { to: 'string' }))
 
 class FirebaseService {
   get pageSize () {
@@ -51,7 +55,7 @@ class FirebaseService {
   async updateNote (id, content) {
     this.firestore().collection('users').doc(this.currentUserId())
       .collection('notes').doc(id).update({
-        content,
+        content: deflate(content),
         updatedTime: this.serverTimestamp()
       })
   }
@@ -60,15 +64,22 @@ class FirebaseService {
     const query = this.app.firestore().collection('users').doc(userId).collection('notes').orderBy(firebase.firestore.FieldPath.documentId())
     const pageQuery = lastVisible ? query.startAfter(lastVisible).limit(this.pageSize) : query
     const snapshot = await pageQuery.get()
-    return snapshot.docs.map(doc => ({
-      ...doc.data(),
-      id: doc.id
-    }))
+    return snapshot.docs.map(doc => {
+      const data = doc.data()
+      return {
+        id: doc.id,
+        content: inflate(data.content)
+      }
+    })
   }
 
   async getNote (userId, docId) {
     const docRef = await this.app.firestore().collection('users').doc(userId).collection('notes').doc(docId).get()
-    return { id: docRef.id, ...docRef.data() }
+    const data = docRef.data()
+    return {
+      id: docRef.id,
+      content: inflate(data.content)
+    }
   }
 }
 

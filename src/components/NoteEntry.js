@@ -17,7 +17,6 @@ export const Excerpt = ({ content }) => {
 }
 
 const Entry = ({ id, content }) => {
-  console.log('content', content)
   return (
     <div className='entry'>
       <div className='entry_id'>
