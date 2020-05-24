@@ -25,7 +25,7 @@ class FirebaseService {
   }
 
   currentUserNotes () {
-    return this.firebaseService
+    return this
       .firestore()
       .collection('users')
       .doc(this.currentUserId())
@@ -37,8 +37,17 @@ class FirebaseService {
   }
 
   async createNote () {
-    var f = this.app.functions().httpsCallable('createNote')
-    return await f({})
+    const f = this.app.functions().httpsCallable('createNote')
+    const res = await f({})
+    return res.data.docId
+  }
+
+  async updateNote (id, content) {
+    this.firestore().collection('users').doc(this.currentUserId())
+      .collection('notes').doc(id).update({
+        content,
+        updatedTime: this.serverTimestamp()
+      })
   }
 }
 

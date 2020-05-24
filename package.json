@@ -29,7 +29,8 @@
     "postcss:watch": "watch 'yarn run postcss:build' src/styles",
     "serve:dev": "concurrently 'yarn run postcss:watch' 'yarn run react:start'",
     "dev": "yarn run postcss:build && yarn run serve:dev",
-    "deploy:function": "firebase deploy --only functions",
+    "deploy:functions": "firebase deploy --only functions",
+    "deploy:hosting": "firebase deploy --only hosting",
     "lint": "standard",
     "lint:fix": "standard --fix"
   },

@@ -1,6 +1,6 @@
 .toolbar {
-  @apply flex flex-initial;
-  @apply border-b py-1 px-2 justify-center;
+  @apply flex flex-initial bg-gray-100;
+  @apply py-1 px-2 justify-center;
 }
 
 .toolbar button {

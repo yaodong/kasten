@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { convertFromRaw, Editor, EditorState, convertToRaw, RichUtils, getDefaultKeyBinding } from 'draft-js'
 import Toolbar from './Toolbar'
 
-const CustomEditor = ({ content, onSubmit }) => {
-  const [editorState, setEditorState] = React.useState(() =>
+const CustomEditor = ({ content, onChange }) => {
+  const [editorState, setEditorState] = useState(() =>
     content ? EditorState.createWithContent(convertFromRaw(content)) : EditorState.createEmpty()
   )
 
@@ -13,11 +13,6 @@ const CustomEditor = ({ content, onSubmit }) => {
 
   const toggleBlockType = (style) => {
     setEditorState(RichUtils.toggleBlockType(editorState, style))
-  }
-
-  const onSave = async (e) => {
-    e.preventDefault()
-    onSubmit(convertToRaw(editorState.getCurrentContent()))
   }
 
   const handleKeyCommand = (command, editorState) => {
@@ -44,11 +39,13 @@ const CustomEditor = ({ content, onSubmit }) => {
     return getDefaultKeyBinding(e)
   }
 
+  const _onChange = (content) => {
+    setEditorState(content)
+    onChange(convertToRaw(editorState.getCurrentContent()))
+  }
+
   return (
     <div className='editor'>
-      <div className='editor__header'>
-        <button onClick={onSave}>Save</button>
-      </div>
       <Toolbar
         editorState={editorState}
         onToggleBlockType={toggleBlockType}
@@ -57,12 +54,11 @@ const CustomEditor = ({ content, onSubmit }) => {
       <div className='editor__content'>
         <Editor
           editorState={editorState}
-          onChange={setEditorState}
+          onChange={_onChange}
           handleKeyCommand={handleKeyCommand}
           keyBindingFn={mapKeyToEditorCommand}
         />
       </div>
-      <div className='editor__footer' />
     </div>
   )
 }

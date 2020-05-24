@@ -29,10 +29,12 @@ export function authReducer (state = {}, action) {
     case AuthActions.CHANGED:
       if (action.auth.isGuest) {
         window.localStorage.removeItem('auth')
+      } else {
+        window.localStorage.setItem('auth', JSON.stringify(action.auth))
       }
       return action.auth
     default:
-      return { ...state }
+      return state
   }
 }
 

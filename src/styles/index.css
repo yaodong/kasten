@@ -4,6 +4,5 @@
 @import "tailwindcss/utilities";
 @import "./base";
 @import "./header";
-@import "./page";
 @import "./editor";
 @import "./toolbar";

@@ -5,6 +5,14 @@ body {
 }
 
 #root {
-  @apply flex flex-col;
   @apply h-full;
 }
+
+.container {
+  @apply flex flex-col max-w-4xl h-full mx-auto;
+}
+
+.page {
+  @apply flex-auto;
+}
+

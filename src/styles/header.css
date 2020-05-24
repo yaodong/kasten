@@ -1,17 +1,36 @@
 .header {
-  @apply flex-initial;
+  @apply flex-initial border-b py-2 mb-5;
 }
 
 .nav {
-  @apply flex pt-2 pb-1 justify-center;
+  @apply flex pt-2 pb-1 justify-between;
 }
 
-.nav a,
-.nav button {
-  @apply mx-2;
+.nav_links {
+  @apply inline;
+}
+
+.nav_links a{
+  @apply mx-2 ;
   @apply font-bold text-sm text-gray-700 border-b-2 border-transparent;
 }
 
-.nav a:hover {
+.nav_links a:hover {
   border-bottom-color: #f46a54;
+}
+
+.nav_actions {
+  @apply inline;
+}
+
+.nav_actions button {
+  @apply ml-2 text-sm;
+}
+
+.nav_actions--primary {
+  @apply rounded-lg px-3 py-1 bg-teal-500 rounded text-white text-sm shadow-md;
+}
+
+.--disabled {
+  @apply opacity-50 cursor-not-allowed;
 }
