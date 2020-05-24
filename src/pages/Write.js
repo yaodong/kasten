@@ -12,9 +12,7 @@ const WritePage = props => {
     const init = async () => {
       if (!docId && content) {
         const id = await firebaseService.createNote()
-        console.log(id)
         setDocId(id)
-        console.log(docId)
       }
     }
     init()

@@ -1,0 +1,37 @@
+.entry {
+    @apply flex p-2 align-middle;
+    line-height: 1.5rem;
+}
+
+.entry:hover {
+    @apply bg-gray-100;
+}
+
+.entry_id {
+    @apply flex-initial font-mono text-gray-600;
+}
+
+.entry_preview {
+    @apply flex-grow h-full px-2;
+    overflow: hidden;
+    height: 1.5rem;
+}
+
+.entry_preview a {
+    display: block;
+}
+
+.entry_actions {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+    text-align: right;
+}
+
+.entry_btn {
+    @apply mr-2 text-gray-600;
+}
+
+.entry_btn:hover {
+    @apply text-gray-700;
+}
