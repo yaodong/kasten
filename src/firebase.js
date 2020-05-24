@@ -68,7 +68,7 @@ class FirebaseService {
       const data = doc.data()
       return {
         id: doc.id,
-        content: inflate(data.content)
+        content: data.content ? inflate(data.content) : null
       }
     })
   }

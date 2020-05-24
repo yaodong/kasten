@@ -10,7 +10,7 @@ function App () {
   return (
     <Router>
       <Switch>
-        <ProtectedRoute path='/write' component={WritePage} />
+        <ProtectedRoute path='/write/:id?' component={WritePage} />
         <ProtectedRoute path='/archive' component={ArchivePage} />
         <ProtectedRoute path='/read/:id' component={ReadPage} />
         <Route path='/'><HomePage /></Route>

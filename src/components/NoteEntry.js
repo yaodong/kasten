@@ -17,22 +17,18 @@ export const Excerpt = ({ content }) => {
 }
 
 const Entry = ({ id, content }) => {
-  const displayId = (id) => {
-    const date = new Date(parseInt(id) * 1000)
-    return date.toLocaleString()
-  }
-
   return (
     <div className='entry'>
       <div className='entry_id'>
         <Link to={`/read/${id}`}>
-          {displayId(id)}
+          {id}
         </Link>
       </div>
       <div className='entry_preview'>
-        <Link to={`/read/${id}`}>
-          {content ? <Excerpt content={content} /> : ''}
-        </Link>
+        {content ? <Excerpt content={content} /> : ''}
+      </div>
+      <div className='entry_actions'>
+        <Link to={`/write/${id}`}>Edit</Link>
       </div>
     </div>
   )
