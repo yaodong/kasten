@@ -61,7 +61,7 @@ class FirebaseService {
   }
 
   async listNotes (userId, lastVisible = null) {
-    const query = this.app.firestore().collection('users').doc(userId).collection('notes').orderBy(firebase.firestore.FieldPath.documentId())
+    const query = this.app.firestore().collection('users').doc(userId).collection('notes').orderBy('id', 'desc')
     const pageQuery = lastVisible ? query.startAfter(lastVisible).limit(this.pageSize) : query
     const snapshot = await pageQuery.get()
     return snapshot.docs.map(doc => {

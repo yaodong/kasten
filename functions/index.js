@@ -13,7 +13,10 @@ exports.createNote = functions.https.onCall((data, context) => {
         if (doc.exists) {
           return reject(new Error({ reason: 'EXISTS', message: 'Doc ref already exists' }));
         } else {
-          docRef.set({ createdTime: admin.firestore.FieldValue.serverTimestamp() })
+          docRef.set({
+            id: docId,
+            createdTime: admin.firestore.FieldValue.serverTimestamp()
+          })
           return resolve({ docId })
         }
       })
