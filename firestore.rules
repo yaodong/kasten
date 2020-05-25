@@ -9,9 +9,9 @@ service cloud.firestore {
       }
 
       allow get: if is_owner();
-      allow list: if is_owner();
+      allow list: if false;
 
-      allow create: if is_owner();
+      allow create: if false;
       allow update: if false;
       allow delete: if false;
 
