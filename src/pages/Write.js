@@ -14,41 +14,39 @@ const WritePage = () => {
   const firebase = useContext(FirebaseContext)
 
   useEffect(() => {
-    const init = async () => {
+    async function init () {
       if (docId) {
         const note = await firebase.getNote(user.id, docId)
         setContent(note.content)
-      } else {
-        const id = await firebase.createNote()
-        setDocId(id)
       }
       setReady(true)
     }
-    init()
-  }, [firebase, user, docId, setReady])
 
-  const save = useCallback(async () => {
-    setSaving(true)
-    await firebase.updateNote(docId, content)
-    setTimeout(() => setSaving(false), 500)
+    init()
+  }, [firebase, user, docId])
+
+  const save = useCallback(() => {
+    async function saveNote () {
+      setSaving(true)
+      const id = docId || await firebase.createNote()
+      docId || setDocId(id)
+      await firebase.updateNote(id, content)
+      setTimeout(() => setSaving(false), 500)
+    }
+
+    saveNote()
   }, [firebase, docId, content])
 
   return (
     <div className='container'>
       <Header>
-        {
-          docId
-            ? <span className='text-gray-500'>#{docId}</span>
-            : ''
-        }
-        {
-          docId
-            ? <button className={`nav_actions--primary ${saving ? '--disabled' : ''}`} onClick={save}>Save</button>
-            : <button className='nav_actions--primary --disabled'>Save</button>
-        }
+        <span className='text-gray-500'>
+          {docId || 'never saved'}
+        </span>
+        <button className={`nav_actions--primary ${saving ? '--disabled' : ''}`} onClick={save}>Save</button>
       </Header>
       <div className='page'>
-        {ready ? <Editor onChange={setContent} content={content} /> : ''}
+        {ready ? <Editor onContentChange={setContent} content={content} /> : ''}
       </div>
     </div>
   )

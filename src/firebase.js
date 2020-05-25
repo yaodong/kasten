@@ -4,8 +4,8 @@ import 'firebase/firestore'
 import 'firebase/functions'
 import pako from 'pako'
 
-const deflate = content => window.btoa(pako.deflate(JSON.stringify(content), { to: 'string' }))
-const inflate = content => JSON.parse(pako.inflate(window.atob(content), { to: 'string' }))
+const deflate = content => content ? window.btoa(pako.deflate(JSON.stringify(content), { to: 'string' })) : null
+const inflate = content => content ? JSON.parse(pako.inflate(window.atob(content), { to: 'string' })) : null
 
 class FirebaseService {
   get pageSize () {

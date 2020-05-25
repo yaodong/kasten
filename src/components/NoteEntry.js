@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
+
 const maxLength = 160
 
 export const Excerpt = ({ content }) => {
@@ -32,6 +34,11 @@ const Entry = ({ id, content }) => {
       </div>
     </div>
   )
+}
+
+Entry.propTypes = {
+  id: PropTypes.string.isRequired,
+  content: PropTypes.object.isRequired
 }
 
 export default Entry

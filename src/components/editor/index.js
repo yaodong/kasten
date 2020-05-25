@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
+import PropTypes from 'prop-types'
 import { convertFromRaw, Editor, EditorState, convertToRaw, RichUtils, getDefaultKeyBinding } from 'draft-js'
 import Toolbar from './Toolbar'
 
-const CustomEditor = ({ content, onChange }) => {
+const CustomEditor = ({ content, onContentChange }) => {
   const [editorState, setEditorState] = useState(() =>
     content ? EditorState.createWithContent(convertFromRaw(content)) : EditorState.createEmpty()
   )
@@ -41,7 +42,7 @@ const CustomEditor = ({ content, onChange }) => {
 
   const _onChange = (content) => {
     setEditorState(content)
-    onChange(convertToRaw(editorState.getCurrentContent()))
+    onContentChange(convertToRaw(editorState.getCurrentContent()))
   }
 
   return (
@@ -61,6 +62,11 @@ const CustomEditor = ({ content, onChange }) => {
       </div>
     </div>
   )
+}
+
+CustomEditor.propTypes = {
+  content: PropTypes.object,
+  onContentChange: PropTypes.func.isRequired
 }
 
 export default CustomEditor
