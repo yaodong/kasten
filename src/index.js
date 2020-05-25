@@ -1,9 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import * as Sentry from '@sentry/browser'
 import './bundle.css'
 import App from './App'
 import { UserProvider, FirebaseProvider } from './contexts'
 import * as serviceWorker from './serviceWorker'
+
+Sentry.init({ dsn: process.env.REACT_APP_SENTRY_ID })
 
 ReactDOM.render(
   <UserProvider>
