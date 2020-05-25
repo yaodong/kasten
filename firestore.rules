@@ -2,56 +2,18 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // = = = = = = = = = = = = = = =
-    // GLOBAL CONTROLS
-    function global_system_on() {
-      return true;
-    }
-
-    function global_read_on() {
-      return true;
-    }
-
-    function global_write_on() {
-      return true;
-    }
-
-    function user_signed_in() {
-      return request.auth.uid != null;
-    }
-
     match /users/{userId} {
 
       function is_owner() {
-        return request.resource.data.userId == userId;
+        return request.auth.uid == userId;
       }
 
-      function allow_user_get() {
-        return is_owner();
-      }
+      allow get: if is_owner();
+      allow list: if is_owner();
 
-      function allow_user_list() {
-        return false;
-      }
-
-      function allow_user_create() {
-        return is_owner();
-      }
-
-      function allow_user_update() {
-        return is_owner();
-      }
-
-      function allow_user_delete() {
-        return false;
-      }
-
-      allow get: if allow_user_get();
-      allow list: if allow_user_list();
-
-      allow create: if allow_user_create();
-      allow update: if allow_user_update();
-      allow delete: if allow_user_delete();
+      allow create: if is_owner();
+      allow update: if false;
+      allow delete: if false;
 
       match /notes/{noteId} {
         allow read, write: if is_owner();
